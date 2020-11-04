@@ -10,6 +10,7 @@ package model;
  * @author lamit
  */
 public class User {
+    private static final long serialVersionUID = 6529685098267757693L;
     private int id;
     private Account account;
     private int point;
