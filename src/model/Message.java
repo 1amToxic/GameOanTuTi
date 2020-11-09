@@ -5,11 +5,13 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author lamit
  */
-public class Message {
+public class Message implements Serializable{
     private static final long serialVersionUID = 6529685098267757691L;
     private Object content;
     private MesType mesType;

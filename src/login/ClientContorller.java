@@ -19,14 +19,14 @@ import model.Message;
  * @author lamit
  */
 public class ClientContorller {
-    private String serverHost = "";
+    private String serverHost = "localhost";
     private int serverPort =  4567;
     private Socket clientSocket;
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
     private ClientFrm clientFrm;
-    public ClientContorller(ClientFrm clientFrm) {
-        this.clientFrm = clientFrm;
+    public ClientContorller() {
+        
         try {
             clientSocket = new Socket(serverHost,serverPort);
             ois = new ObjectInputStream(clientSocket.getInputStream());
@@ -49,9 +49,11 @@ public class ClientContorller {
             if(o instanceof Message){
                 Message mes = (Message) o;
                 if(mes.getMesType() == Message.MesType.LOGIN_SUCCESS){
-                    clientFrm.showMessage("Login Success");
+//                    clientFrm.showMessage("Login Success");
+                    System.out.println("Yes");
                 }else{
-                    clientFrm.showMessage("Login Failed");
+                    System.out.println("No");
+//                    clientFrm.showMessage("Login Failed");
                 }
             }
         } catch (IOException ex) {

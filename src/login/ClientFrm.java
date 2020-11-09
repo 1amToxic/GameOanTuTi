@@ -6,18 +6,20 @@
 package login;
 
 import javax.swing.JOptionPane;
+import model.Account;
 
 /**
  *
  * @author lamit
  */
 public class ClientFrm extends javax.swing.JFrame {
-
+    ClientContorller clientContorller;
     /**
      * Creates new form ClientThread
      */
     public ClientFrm() {
         initComponents();
+       
     }
 
     /**
@@ -87,6 +89,11 @@ public class ClientFrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        clientContorller = new ClientContorller();
+        String username = tfUsername.getText();
+        String password = tfPassword.getText();
+        Account acc = new Account(username, password);
+        clientContorller.sendData(acc);
         
     }//GEN-LAST:event_jButton1ActionPerformed
     public void showMessage(String s){

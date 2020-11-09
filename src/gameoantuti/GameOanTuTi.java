@@ -5,6 +5,8 @@
  */
 package gameoantuti;
 
+import login.ServerThreadMain;
+
 /**
  *
  * @author lamit
@@ -16,6 +18,8 @@ public class GameOanTuTi {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Thread thread = new Thread(new ServerThreadMain());
+        thread.start();
     }
     
 }

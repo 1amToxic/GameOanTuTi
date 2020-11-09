@@ -25,6 +25,9 @@ public class ServerThreadMain implements Runnable {
     ObjectOutputStream oos = null;
     Socket clientSocket;
 
+    public ServerThreadMain() {
+    }
+    
     @Override
     public void run() {
         while (true) {
@@ -36,7 +39,9 @@ public class ServerThreadMain implements Runnable {
                 }
                 while (!Thread.currentThread().isInterrupted()) {
                     try {
+                        System.out.println("1");
                         clientSocket = myServer.accept();
+                        System.out.println("2");
                         System.out.println(clientSocket.getRemoteSocketAddress());
                         ServerControl sc = new ServerControl(clientSocket);
                         new Thread(sc).start();
