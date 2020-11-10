@@ -5,13 +5,15 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author lamit
  */
-public class Game {
+public class Game implements Serializable{
+    private static final long serialVersionUID = 6529685098267757692L;
     private int id;
     private User user;
     private Date timeCreate;
