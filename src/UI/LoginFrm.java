@@ -5,6 +5,7 @@
  */
 package UI;
 
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 /**
@@ -101,7 +102,7 @@ public class LoginFrm extends javax.swing.JFrame {
     }
     
     public String getPassword() {
-        return password.getPassword().toString();
+        return Arrays.toString(password.getPassword());
     }
     /**
      * @param args the command line arguments

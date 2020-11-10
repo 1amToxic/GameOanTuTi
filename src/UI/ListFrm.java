@@ -5,19 +5,27 @@
  */
 package UI;
 
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import model.User;
+
 /**
  *
  * @author BENH VIEN CONG NGHE
  */
 public class ListFrm extends javax.swing.JFrame {
-
+    DefaultTableModel model;
+    
     /**
      * Creates new form ListFrm
      */
     public ListFrm() {
         initComponents();
+        model = (DefaultTableModel) tableList.getModel();
     }
-
+    public void addRow(ArrayList<User> listUser){
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

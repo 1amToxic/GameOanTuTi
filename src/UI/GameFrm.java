@@ -5,12 +5,13 @@
  */
 package UI;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author BENH VIEN CONG NGHE
  */
 public class GameFrm extends javax.swing.JFrame {
-
     /**
      * Creates new form Game
      */
