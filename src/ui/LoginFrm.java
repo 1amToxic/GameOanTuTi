@@ -17,6 +17,7 @@ import model.Message;
  * @author BENH VIEN CONG NGHE
  */
 public class LoginFrm extends javax.swing.JFrame {
+    ClientControl control = new ClientControl();
     /**
      * Creates new form LoginFrm
      */
@@ -90,7 +91,29 @@ public class LoginFrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        
+        System.out.println("1");
+            String username = getName();
+            String password = getPassword();
+            Account account = new Account(username,password);
+            Message mesSend = new Message(account, Message.MesType.LOGIN);
+            System.out.println("2");
+            control.sendData(mesSend);
+            System.out.println("3");
+            Message mesRecei = control.receiveData();
+            System.out.println("4");
+            if(mesRecei!=null){
+                switch(mesRecei.getMesType()){
+                    case LOGIN_FAIL:{
+                        showMessage("Login Fail");
+                        break;
+                    }
+                    case LOGIN_SUCCESS:{
+                        showMessage("Login Success");
+                        break;
+                    }
+                    default: break;
+                }
+            }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     public void showMessage(String s){

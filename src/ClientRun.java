@@ -14,8 +14,6 @@ import ui.LoginFrm;
  */
 public class ClientRun {
     public static void main(String[] args) {
-        LoginFrm loginFrm = new LoginFrm();
-        loginFrm.setVisible(true);
-        LoginControl loginControl = new LoginControl(loginFrm);
+        LoginControl loginControl = new LoginControl();
     }
 }
