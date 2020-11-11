@@ -15,9 +15,9 @@ import java.sql.SQLException;
  */
 public class ConnectDatabase {
     private Connection conn;
-    private String jdbcURL = "jdbc:mysql://localhost:3306/student?useSSL=false";
+    private String jdbcURL = "jdbc:mysql://localhost:3306/testdbgame?useSSL=false";
     private String jdbcUsername = "root";
-    private String jdbcPassword = "phong611";
+    private String jdbcPassword = "6868";
     private static ConnectDatabase connectDb = null;
     
     private ConnectDatabase() {

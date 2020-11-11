@@ -11,7 +11,9 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Account;
 import model.Message;
+import model.User;
 
 /**
  *
@@ -42,9 +44,9 @@ public class ServerControl implements Runnable{
                 Object o = ois.readObject();
                 if(o instanceof Message){
                     Message mesReceive = (Message) o;
-                    checkMesType(mesReceive.getMesType());
-                    Message mesSend = createMessage();
-                    oos.writeObject(mesSend);
+                    checkMesType(mesReceive);
+//                    Message mesSend = createMessage();
+//                    oos.writeObject(mesSend);
                 }
             }
             Thread.sleep(100);
@@ -58,10 +60,24 @@ public class ServerControl implements Runnable{
             }
         }
     }
-    private void checkMesType(Message.MesType mesType){
-        switch(mesType){
+    private void checkMesType(Message mesReceive){
+        switch(mesReceive.getMesType()){
             case LOGIN:{
-                
+                User user = serverDao.checkLogin((Account) mesReceive.getObject());
+                if(user == null){
+                    try {
+                        oos.writeObject(new Message(null, Message.MesType.LOGIN_FAIL));
+                    } catch (IOException ex) {
+                        Logger.getLogger(ServerControl.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                else{
+                    try {
+                        oos.writeObject(new Message(user, Message.MesType.LOGIN_SUCCESS));
+                    } catch (IOException ex) {
+                        Logger.getLogger(ServerControl.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
             } 
             case REGISTER:{
                 

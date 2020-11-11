@@ -58,7 +58,7 @@ public class ServerDao{
                 Logger.getLogger(ServerDao.class.getName()).log(Level.SEVERE, null, ex1);
             }
         }
-        return user;
+        return null;
     }
 
     public boolean register(Account acc) {

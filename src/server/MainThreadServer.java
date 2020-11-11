@@ -35,6 +35,7 @@ public class MainThreadServer implements Runnable{
                 server = new ServerSocket(serverPort);
                 while(!Thread.currentThread().isInterrupted()){
                     clientSocket = server.accept();
+                    System.out.println(clientSocket.getRemoteSocketAddress());
                     Thread thread = new Thread(new ServerControl(clientSocket));
                     thread.start();
                 }
