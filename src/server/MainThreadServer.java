@@ -35,6 +35,8 @@ public class MainThreadServer implements Runnable{
                 server = new ServerSocket(serverPort);
                 while(!Thread.currentThread().isInterrupted()){
                     clientSocket = server.accept();
+                    Thread thread = new Thread(new ServerControl(clientSocket));
+                    thread.start();
                 }
                 Thread.sleep(100);
             } catch (InterruptedException ex) {
