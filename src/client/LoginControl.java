@@ -28,12 +28,16 @@ public class LoginControl {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
+            System.out.println("1");
             String username = loginFrm.getName();
             String password = loginFrm.getPassword();
             Account account = new Account(username,password);
             Message mesSend = new Message(account, Message.MesType.LOGIN);
+            System.out.println("2");
             control.sendData(mesSend);
+            System.out.println("3");
             Message mesRecei = control.receiveData();
+            System.out.println("4");
             if(mesRecei!=null){
                 switch(mesRecei.getMesType()){
                     case LOGIN_FAIL:{
