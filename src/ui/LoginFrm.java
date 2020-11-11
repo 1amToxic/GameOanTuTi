@@ -6,6 +6,7 @@
 package ui;
 
 import client.ClientControl;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 import model.Account;
@@ -22,7 +23,9 @@ public class LoginFrm extends javax.swing.JFrame {
     public LoginFrm() {
         initComponents();
     }
-
+    public void setAction(ActionListener al){
+        btnLogin.addActionListener(al);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

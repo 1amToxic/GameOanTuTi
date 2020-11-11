@@ -22,6 +22,7 @@ public class LoginControl {
     public LoginControl(LoginFrm loginFrm) {
         this.loginFrm = loginFrm;
         control = new ClientControl();
+        loginFrm.setAction(new ButtonListener());
     }
     class ButtonListener implements ActionListener{
 
