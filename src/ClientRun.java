@@ -1,5 +1,6 @@
 
-import server.MainThreadServer;
+import client.LoginControl;
+import ui.LoginFrm;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -11,9 +12,10 @@ import server.MainThreadServer;
  *
  * @author lamit
  */
-public class MainRun {
+public class ClientRun {
     public static void main(String[] args) {
-        Thread threadMain = new Thread(new MainThreadServer());
-        threadMain.start();
+        LoginFrm loginFrm = new LoginFrm();
+        loginFrm.setVisible(true);
+        LoginControl loginControl = new LoginControl(loginFrm);
     }
 }

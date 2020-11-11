@@ -23,8 +23,9 @@ public class ServerControl implements Runnable{
     private Socket clientSocket;
     ObjectInputStream ois;
     ObjectOutputStream oos;
-
+    ServerDao serverDao;
     public ServerControl(Socket socket) {
+        this.serverDao = new ServerDao();
         this.clientSocket = socket;
         try {
             ois = new ObjectInputStream(clientSocket.getInputStream());

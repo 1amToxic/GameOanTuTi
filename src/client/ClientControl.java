@@ -11,7 +11,9 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import model.Message;
+import ui.LoginFrm;
 import utils.Usage;
 
 /**
@@ -24,8 +26,7 @@ public class ClientControl{
     private int serverPort;
     ObjectInputStream ois;
     ObjectOutputStream oos;
-
-    public ClientControl() {
+    public ClientControl(){
         serverHost = Usage.serverHost;
         serverPort = Usage.port;
         try {
@@ -44,11 +45,12 @@ public class ClientControl{
             Logger.getLogger(ClientControl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public Object receiveData(){
+    public Message receiveData(){
         try {
             Object o = ois.readObject();
             if(o instanceof Message){
                 Message mesReceive =(Message) o;
+                return mesReceive;
             }
         } catch (IOException ex) {
             Logger.getLogger(ClientControl.class.getName()).log(Level.SEVERE, null, ex);
@@ -60,6 +62,8 @@ public class ClientControl{
     private void checkMesReceiveType(Message.MesType mesType){
         switch(mesType){
             case LOGIN_FAIL:{
+            }
+            case LOGIN_SUCCESS:{
                 
             }
         }

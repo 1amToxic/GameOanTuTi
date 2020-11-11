@@ -27,19 +27,17 @@ import utils.Usage;
  *
  * @author lamit
  */
-public class ServerDao extends ConnectDatabase {
+public class ServerDao{
 
     private Connection conn;
-
     public ServerDao() {
-        conn = super.getConnection();
+        conn = ConnectDatabase.getInstance().getConnection();
         try {
             conn.setAutoCommit(false);
         } catch (SQLException ex) {
             Logger.getLogger(ServerDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
     public User checkLogin(Account acc) {
         User user = new User();
         try {

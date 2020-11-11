@@ -18,7 +18,9 @@ public class ConnectDatabase {
     private String jdbcURL = "jdbc:mysql://localhost:3306/student?useSSL=false";
     private String jdbcUsername = "root";
     private String jdbcPassword = "phong611";
-    public ConnectDatabase() {
+    private static ConnectDatabase connectDb = null;
+    
+    private ConnectDatabase() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(jdbcURL, jdbcUsername,
@@ -29,7 +31,12 @@ public class ConnectDatabase {
             e.printStackTrace();
         }
     }
-    
+    public static ConnectDatabase getInstance(){
+        if(connectDb == null){
+            connectDb = new ConnectDatabase();
+        }
+        return connectDb;
+    }
     public Connection getConnection(){
         return conn;
     }
