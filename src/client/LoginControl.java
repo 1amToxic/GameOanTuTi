@@ -19,10 +19,11 @@ import ui.LoginFrm;
 public class LoginControl {
     private LoginFrm loginFrm;
     ClientControl control;
-    public LoginControl(LoginFrm loginFrm) {
-        this.loginFrm = loginFrm;
-        control = new ClientControl();
+    public LoginControl() {
+        loginFrm = new LoginFrm();
+        loginFrm.setVisible(true);
         loginFrm.setAction(new ButtonListener());
+        control = new ClientControl();
     }
     class ButtonListener implements ActionListener{
 

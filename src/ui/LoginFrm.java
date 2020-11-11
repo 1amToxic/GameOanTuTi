@@ -91,7 +91,6 @@ public class LoginFrm extends javax.swing.JFrame {
     
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         
-        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     public void showMessage(String s){
