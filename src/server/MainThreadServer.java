@@ -39,6 +39,7 @@ public class MainThreadServer implements Runnable{
                     thread.start();
                 }
                 Thread.sleep(100);
+                clientSocket.close();
             } catch (InterruptedException ex) {
                 Logger.getLogger(MainThreadServer.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
