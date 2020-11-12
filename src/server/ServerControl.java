@@ -40,7 +40,9 @@ public class ServerControl implements Runnable{
     @Override
     public void run() {
         try {
+            System.out.println("0");
             while(!Thread.currentThread().isInterrupted()){
+                System.out.println("1");
                 Object o = ois.readObject();
                 if(o instanceof Message){
                     Message mesReceive = (Message) o;
@@ -50,6 +52,7 @@ public class ServerControl implements Runnable{
                 }
             }
             Thread.sleep(100);
+            clientSocket.close();
         } catch (Exception ex){
             try {
                 ois.close();
@@ -63,7 +66,10 @@ public class ServerControl implements Runnable{
     private void checkMesType(Message mesReceive){
         switch(mesReceive.getMesType()){
             case LOGIN:{
+                Account acc = (Account) mesReceive.getObject();
+                System.out.println(acc);
                 User user = serverDao.checkLogin((Account) mesReceive.getObject());
+                System.out.println(user.getAccount().getUsername()+"-"+user.getAccount().getPassword());
                 if(user == null){
                     try {
                         oos.writeObject(new Message(user, Message.MesType.LOGIN_FAIL));

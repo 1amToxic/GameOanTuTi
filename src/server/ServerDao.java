@@ -46,17 +46,15 @@ public class ServerDao{
             pre.setString(2, acc.getPassword());
             ResultSet rs = pre.executeQuery();
             if (rs.next()) {
+                System.out.println("1login");
                 user.setAccount(acc);
                 user.setStatus(true);
+                return user;
             }
-            conn.commit();
+            
         } catch (SQLException ex) {
             Logger.getLogger(ServerDao.class.getName()).log(Level.SEVERE, null, ex);
-            try {
-                conn.rollback();
-            } catch (SQLException ex1) {
-                Logger.getLogger(ServerDao.class.getName()).log(Level.SEVERE, null, ex1);
-            }
+            
         }
         return null;
     }
