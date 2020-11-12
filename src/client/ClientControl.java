@@ -33,20 +33,20 @@ public class ClientControl{
         }
         return instance;
     }
-    private ClientControl(){
-        openConnection();
+    public ClientControl(){
     }
-    private void openConnection(){
+    public Socket openConnection(){
         serverHost = Usage.serverHost;
         serverPort = Usage.port;
         try {
             clientSocket = new Socket(serverHost,serverPort);
-            ois = new ObjectInputStream(clientSocket.getInputStream());
             oos = new ObjectOutputStream(clientSocket.getOutputStream());
-            
+            ois = new ObjectInputStream(clientSocket.getInputStream());
+            return clientSocket;
         } catch (IOException ex) {
             Logger.getLogger(ClientControl.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
     public void sendData(Message mesSend){
         try {

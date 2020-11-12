@@ -24,7 +24,7 @@ public class LoginFrm extends javax.swing.JFrame {
         initComponents();
     }
     public void setAction(ActionListener al){
-        
+        btnLogin.addActionListener(al);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -102,7 +102,7 @@ public class LoginFrm extends javax.swing.JFrame {
     }
     
     public String getPassword() {
-        return Arrays.toString(tfPassword.getPassword());
+        return tfPassword.getText();
     }
     /**
      * @param args the command line arguments

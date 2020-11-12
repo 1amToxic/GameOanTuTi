@@ -1,4 +1,5 @@
 
+import client.ClientControl;
 import client.LoginControl;
 import ui.LoginFrm;
 
@@ -14,5 +15,14 @@ import ui.LoginFrm;
  */
 public class ClientRun {
     public static void main(String[] args) {
+        LoginFrm loginFrm = new LoginFrm();
+        System.out.println("1");
+        ClientControl clientControl = new ClientControl();
+        System.out.println("");
+        clientControl.openConnection();
+        System.out.println("2");
+        LoginControl loginControl
+                 = new LoginControl(loginFrm,clientControl);
+        
     }
 }

@@ -19,10 +19,11 @@ import ui.LoginFrm;
 public class LoginControl {
     private LoginFrm loginFrm;
     private ClientControl clientControl;
-    public LoginControl(LoginFrm loginFrm){
+    public LoginControl(LoginFrm loginFrm,ClientControl clientControl){
+        this.clientControl = clientControl;
         this.loginFrm = loginFrm;
         this.loginFrm.setVisible(true);
-        clientControl = ClientControl.getInstance();
+        this.loginFrm.setAction(new ButtonListener());
     }
     class ButtonListener implements ActionListener{
 
@@ -30,9 +31,12 @@ public class LoginControl {
         public void actionPerformed(ActionEvent e) {
             String username = loginFrm.getUsername();
             String password = loginFrm.getPassword();
+            System.out.println(password);
+            System.out.println("2");
             Account account = new Account(username, password);
             Message mesSend = new Message(account, Message.MesType.LOGIN);
             clientControl.sendData(mesSend);
+            System.out.println("1");
             Message mesRecei = clientControl.receiveData();
             if(mesRecei.getMesType() == Message.MesType.LOGIN_FAIL){
                 loginFrm.showMessage("Login Fail");
