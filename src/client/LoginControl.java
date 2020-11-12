@@ -32,11 +32,9 @@ public class LoginControl {
             String username = loginFrm.getUsername();
             String password = loginFrm.getPassword();
             System.out.println(password);
-            System.out.println("2");
             Account account = new Account(username, password);
             Message mesSend = new Message(account, Message.MesType.LOGIN);
             clientControl.sendData(mesSend);
-            System.out.println("1");
             Message mesRecei = clientControl.receiveData();
             if(mesRecei.getMesType() == Message.MesType.LOGIN_FAIL){
                 loginFrm.showMessage("Login Fail");
