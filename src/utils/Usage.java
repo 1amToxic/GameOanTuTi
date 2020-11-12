@@ -15,7 +15,7 @@ public interface Usage {
     
     public String findAccount = "select * from tblaccount where _username = ? and _password = ?";
     public String register = "insert into tblaccount(_username,_password) values(?,?)";
-    public String insertUser = "insert into tbluser(_accid,_point_status) values (?,?,?)";
+    public String insertUser = "insert into tbluser(_accid,_point,_status) values (?,?,?)";
     public String insertAccount = "insert into tblaccount(_username,_password) values(?,?)";
     public String insertGame = "insert into tblGame(_timecreate) values(?)";
     public String insertChoice = "insert into tblChoice(_userid,_gameid,choice) values(?,?,?)";

@@ -62,17 +62,31 @@ public class ServerDao{
     public boolean register(Account acc) {
         boolean isSuccess = false;
         try {
-            PreparedStatement pre = conn.prepareStatement(Usage.insertAccount, Statement.RETURN_GENERATED_KEYS);
-            pre.setString(1, acc.getUsername());
-            pre.setString(2, acc.getPassword());
-            int lastRowId = pre.executeUpdate();
-            PreparedStatement pre1 = conn.prepareStatement(Usage.insertUser);
-            User user = new User(0, false);
-            pre1.setInt(1, lastRowId);
-            pre1.setInt(2, 0);
-            pre1.setBoolean(3, false);
-            isSuccess = true;
-            conn.commit();
+            PreparedStatement preProcess = conn.prepareStatement(Usage.findAccount);
+            preProcess.setString(1, acc.getUsername());
+            preProcess.setString(2, acc.getPassword());
+            ResultSet rs = preProcess.executeQuery();
+            if (!rs.next()) {
+                PreparedStatement pre = conn.prepareStatement(Usage.insertAccount, Statement.RETURN_GENERATED_KEYS);
+                pre.setString(1, acc.getUsername());
+                pre.setString(2, acc.getPassword());
+                pre.executeUpdate();
+                //get id insert last
+                ResultSet rs1 = pre.getGeneratedKeys();
+                int lastRowId = 0;
+                if(rs1.next()){
+                    lastRowId = rs1.getInt(1);
+                }
+                System.out.println("lastrow"+lastRowId);
+                PreparedStatement pre1 = conn.prepareStatement(Usage.insertUser);
+                User user = new User(0, false);
+                pre1.setInt(1, lastRowId);
+                pre1.setInt(2, 0);
+                pre1.setBoolean(3, false);
+                pre1.executeUpdate();
+                isSuccess = true;
+                conn.commit();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ServerDao.class.getName()).log(Level.SEVERE, null, ex);
             try {

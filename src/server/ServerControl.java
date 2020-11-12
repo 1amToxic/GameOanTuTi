@@ -19,13 +19,15 @@ import model.User;
  *
  * @author lamit
  */
-public class ServerControl implements Runnable{
+public class ServerControl implements Runnable {
+
     private String serverHost;
     private int serverPort;
     private Socket clientSocket;
     ObjectInputStream ois;
     ObjectOutputStream oos;
     ServerDao serverDao;
+
     public ServerControl(Socket socket) {
         this.serverDao = new ServerDao();
         this.clientSocket = socket;
@@ -36,24 +38,22 @@ public class ServerControl implements Runnable{
             Logger.getLogger(ServerControl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Override
     public void run() {
         try {
             System.out.println("0");
-            while(!Thread.currentThread().isInterrupted()){
+            while (!Thread.currentThread().isInterrupted()) {
                 System.out.println("1");
                 Object o = ois.readObject();
-                if(o instanceof Message){
+                if (o instanceof Message) {
                     Message mesReceive = (Message) o;
                     checkMesType(mesReceive);
-//                    Message mesSend = createMessage();
-//                    oos.writeObject(mesSend);
                 }
             }
             Thread.sleep(100);
             clientSocket.close();
-        } catch (Exception ex){
+        } catch (Exception ex) {
             try {
                 ois.close();
                 oos.close();
@@ -63,36 +63,53 @@ public class ServerControl implements Runnable{
             }
         }
     }
-    private void checkMesType(Message mesReceive){
-        switch(mesReceive.getMesType()){
-            case LOGIN:{
+
+    private void checkMesType(Message mesReceive) {
+        switch (mesReceive.getMesType()) {
+            case LOGIN: {
                 Account acc = (Account) mesReceive.getObject();
                 System.out.println(acc);
                 User user = serverDao.checkLogin((Account) mesReceive.getObject());
-                System.out.println(user.getAccount().getUsername()+"-"+user.getAccount().getPassword());
-                if(user == null){
+                if (user == null) {
                     try {
-                        oos.writeObject(new Message(user, Message.MesType.LOGIN_FAIL));
+                        User user1 = new User();
+                        oos.writeObject(new Message(user1, Message.MesType.LOGIN_FAIL));
                     } catch (IOException ex) {
                         Logger.getLogger(ServerControl.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                }
-                else{
+                } else {
                     try {
                         oos.writeObject(new Message(user, Message.MesType.LOGIN_SUCCESS));
                     } catch (IOException ex) {
                         Logger.getLogger(ServerControl.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-            } 
-            case REGISTER:{
-                
+                break;
             }
+            case REGISTER: {
+                boolean isRegisterSuccess = serverDao.register((Account) mesReceive.getObject());
+                if (isRegisterSuccess == false) {
+                    try {
+                        oos.writeObject(new Message(isRegisterSuccess, Message.MesType.REGISTER_FAIL));
+                    } catch (IOException ex) {
+                        Logger.getLogger(ServerControl.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    try {
+                        oos.writeObject(new Message(isRegisterSuccess, Message.MesType.REGISTER_SUCCESS));
+                    } catch (IOException ex) {
+                        Logger.getLogger(ServerControl.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                break;
+            }
+            default: break;
         }
     }
-    private Message createMessage(){
+
+    private Message createMessage() {
         Message mes = new Message();
         return mes;
     }
-    
+
 }
