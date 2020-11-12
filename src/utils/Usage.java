@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -11,7 +11,7 @@ package utils;
  */
 public interface Usage {
     public int port = 4567;
-    public String serverHost = "localhost";
+    public String serverHost = "192.168.43.105";
     
     public String findAccount = "select * from tblaccount where _username = ? and _password = ?";
     public String register = "insert into tblaccount(_username,_password) values(?,?)";

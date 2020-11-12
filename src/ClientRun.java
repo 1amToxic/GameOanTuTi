@@ -14,6 +14,5 @@ import ui.LoginFrm;
  */
 public class ClientRun {
     public static void main(String[] args) {
-        LoginControl loginControl = new LoginControl();
     }
 }

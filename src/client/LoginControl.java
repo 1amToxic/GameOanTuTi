@@ -18,41 +18,29 @@ import ui.LoginFrm;
  */
 public class LoginControl {
     private LoginFrm loginFrm;
-    ClientControl control;
-    public LoginControl() {
-        loginFrm = new LoginFrm();
-        loginFrm.setVisible(true);
-        loginFrm.setAction(new ButtonListener());
-        control = new ClientControl();
+    private ClientControl clientControl;
+    public LoginControl(LoginFrm loginFrm){
+        this.loginFrm = loginFrm;
+        this.loginFrm.setVisible(true);
+        clientControl = ClientControl.getInstance();
     }
     class ButtonListener implements ActionListener{
 
         @Override
-        public void actionPerformed(ActionEvent ae) {
-            System.out.println("1");
-            String username = loginFrm.getName();
+        public void actionPerformed(ActionEvent e) {
+            String username = loginFrm.getUsername();
             String password = loginFrm.getPassword();
-            Account account = new Account(username,password);
+            Account account = new Account(username, password);
             Message mesSend = new Message(account, Message.MesType.LOGIN);
-            System.out.println("2");
-            control.sendData(mesSend);
-            System.out.println("3");
-            Message mesRecei = control.receiveData();
-            System.out.println("4");
-            if(mesRecei!=null){
-                switch(mesRecei.getMesType()){
-                    case LOGIN_FAIL:{
-                        loginFrm.showMessage("Login Fail");
-                        break;
-                    }
-                    case LOGIN_SUCCESS:{
-                        loginFrm.showMessage("Login Success");
-                        break;
-                    }
-                    default: break;
-                }
+            clientControl.sendData(mesSend);
+            Message mesRecei = clientControl.receiveData();
+            if(mesRecei.getMesType() == Message.MesType.LOGIN_FAIL){
+                loginFrm.showMessage("Login Fail");
+            }else if(mesRecei.getMesType() == Message.MesType.LOGIN_SUCCESS){
+                loginFrm.showMessage("Login Success");
             }
         }
         
     }
 }
+

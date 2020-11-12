@@ -16,24 +16,26 @@ import utils.Usage;
  *
  * @author lamit
  */
-public class MainThreadServer implements Runnable{
+public class MainThreadServer implements Runnable {
+
     private String serverHost;
     private int serverPort;
     private Socket clientSocket;
     private ServerSocket server;
-    
+
     public MainThreadServer() {
         serverPort = Usage.port;
         this.serverHost = Usage.serverHost;
     }
+
     //this threaed will run forever util crash by user
     //so server always get any interact from client
     @Override
     public void run() {
-        while(true){
+        while (true) {
             try {
                 server = new ServerSocket(serverPort);
-                while(!Thread.currentThread().isInterrupted()){
+                while (!Thread.currentThread().isInterrupted()) {
                     clientSocket = server.accept();
                     System.out.println(clientSocket.getRemoteSocketAddress());
                     Thread thread = new Thread(new ServerControl(clientSocket));
@@ -48,5 +50,5 @@ public class MainThreadServer implements Runnable{
             }
         }
     }
-    
+
 }

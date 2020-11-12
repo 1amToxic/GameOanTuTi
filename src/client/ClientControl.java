@@ -26,7 +26,17 @@ public class ClientControl{
     private int serverPort;
     ObjectInputStream ois;
     ObjectOutputStream oos;
-    public ClientControl(){
+    private static ClientControl instance = null;
+    public static ClientControl getInstance(){
+        if(instance == null){
+            instance = new ClientControl();
+        }
+        return instance;
+    }
+    private ClientControl(){
+        openConnection();
+    }
+    private void openConnection(){
         serverHost = Usage.serverHost;
         serverPort = Usage.port;
         try {

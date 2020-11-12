@@ -66,7 +66,7 @@ public class ServerControl implements Runnable{
                 User user = serverDao.checkLogin((Account) mesReceive.getObject());
                 if(user == null){
                     try {
-                        oos.writeObject(new Message(null, Message.MesType.LOGIN_FAIL));
+                        oos.writeObject(new Message(user, Message.MesType.LOGIN_FAIL));
                     } catch (IOException ex) {
                         Logger.getLogger(ServerControl.class.getName()).log(Level.SEVERE, null, ex);
                     }
