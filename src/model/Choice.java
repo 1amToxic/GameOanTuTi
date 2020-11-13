@@ -12,12 +12,21 @@ import java.io.Serializable;
  * @author lamit
  */
 public class Choice implements Serializable{
+    int id;
     private static final long serialVersionUID = 6529685098267757691L;
     private User user;
     private Game game;
     private ChoiceType choice;
     private int result;
 
+    public Choice(int id, User user, Game game, ChoiceType choice, int result) {
+        this.id = id;
+        this.user = user;
+        this.game = game;
+        this.choice = choice;
+        this.result = result;
+    }
+    
     public Choice(User user, Game game, ChoiceType choice, int result) {
         this.user = user;
         this.game = game;
@@ -25,6 +34,14 @@ public class Choice implements Serializable{
         this.result = result;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public User getUser() {
         return user;
     }

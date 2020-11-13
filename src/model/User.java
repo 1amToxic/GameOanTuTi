@@ -47,6 +47,14 @@ public class User implements Serializable{
         this.status = status;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public Account getAccount() {
         return account;
     }

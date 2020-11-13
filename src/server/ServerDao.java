@@ -77,7 +77,6 @@ public class ServerDao{
                 if(rs1.next()){
                     lastRowId = rs1.getInt(1);
                 }
-                System.out.println("lastrow"+lastRowId);
                 PreparedStatement pre1 = conn.prepareStatement(Usage.insertUser);
                 User user = new User(0, false);
                 pre1.setInt(1, lastRowId);
@@ -104,7 +103,13 @@ public class ServerDao{
             PreparedStatement pre = conn.prepareStatement(Usage.insertGame, Statement.RETURN_GENERATED_KEYS);
             Date date = new Date();
             pre.setObject(1, date.toInstant().atZone(ZoneId.of("Vietnam")).toLocalDate());
-            int idGame = pre.executeUpdate();
+            //get id has just inserted 
+            pre.executeUpdate();
+            ResultSet resultGetGenerateKey = pre.getGeneratedKeys();
+            int idGame = 0;
+            if(resultGetGenerateKey.next()){
+                idGame = resultGetGenerateKey.getInt(1);
+            }
             game.setTimeCreated(date);
             game.setId(idGame);
             conn.commit();
@@ -123,8 +128,37 @@ public class ServerDao{
     public void insertChoice(Choice choice) {
         try {
             PreparedStatement pre = conn.prepareStatement(Usage.insertChoice);
-            pre.setInt(0, 0);
+            pre.setInt(1, choice.getUser().getId());
+            pre.setInt(2, choice.getGame().getId());
+            int choiceInt = 0;
+            /**
+             * BUA = 1
+             * KEO = 2
+             * BAO = 3
+             */
+            switch(choice.getChoice()){
+                case BUA:{
+                    choiceInt = 1;
+                    break;
+                }
+                case KEO:{
+                    choiceInt = 2;
+                    break;
+                }
+                case  BAO:{
+                    choiceInt = 3;
+                    break;
+                }
+            }
+            pre.setInt(3, choiceInt);
+            pre.executeUpdate();
+            conn.commit();
         } catch (SQLException ex) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(ServerDao.class.getName()).log(Level.SEVERE, null, ex1);
+            }
             Logger.getLogger(ServerDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
