@@ -11,7 +11,8 @@ import java.io.Serializable;
  *
  * @author lamit
  */
-public class Choice implements Serializable{
+public class Choice implements Serializable {
+
     int id;
     private static final long serialVersionUID = 6529685098267757691L;
     private User user;
@@ -26,7 +27,7 @@ public class Choice implements Serializable{
         this.choice = choice;
         this.result = result;
     }
-    
+
     public Choice(User user, Game game, ChoiceType choice, int result) {
         this.user = user;
         this.game = game;
@@ -41,7 +42,7 @@ public class Choice implements Serializable{
     public void setId(int id) {
         this.id = id;
     }
-    
+
     public User getUser() {
         return user;
     }
@@ -73,9 +74,10 @@ public class Choice implements Serializable{
     public void setResult(int result) {
         this.result = result;
     }
-    
+
 }
-enum ChoiceType{
+
+enum ChoiceType {
     BUA,
     KEO,
     BAO
