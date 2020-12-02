@@ -193,7 +193,42 @@ public class ServerDao{
         }
         return listUser;
     }
-
+    
+    public ArrayList<User> getUers(){
+        ArrayList<User> listUser = new ArrayList<>();
+        try {
+            PreparedStatement pre = conn.prepareStatement(Usage.getAllUser);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                //u._point,u._status,a._username
+                int point = rs.getInt("u._point");
+                boolean status = rs.getBoolean("u._status");
+                String username = rs.getString("a._username");
+                User user = new User(new Account(username), point, status);
+                listUser.add(user);
+            }
+            Collections.sort(listUser,new CompareUser());
+            int rank = 1;
+            for(User user : listUser){
+                user.setRank(rank++);
+            }
+            conn.commit();
+            return listUser;
+        } catch (SQLException ex) {
+            Logger.getLogger(ServerDao.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                conn.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(ServerDao.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+        return listUser;
+    }
+    
+    public void invite(){
+        
+    }
+    
     class CompareUser implements Comparator<User> {
 
         @Override

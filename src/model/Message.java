@@ -59,6 +59,14 @@ public class Message implements Serializable {
         REPLY_RESULT,
         //scoreboard
         GET_SCOREBOARD,
-        REPLY_SCOREBOARD
+        REPLY_SCOREBOARD,
+        //list
+        LIST_USERS,
+        lIST_FULL,
+        LIST_NULL,
+        //moi
+        INVITE_USER,
+        INVITE_TRUE,
+        INVITE_FALSE,     
     }
 }

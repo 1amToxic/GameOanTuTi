@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
@@ -103,10 +104,43 @@ public class ServerControl implements Runnable {
                 }
                 break;
             }
+            case LIST_USERS:{
+                ArrayList<User> us = serverDao.getUers();
+                if(us != null){
+                    try {
+                        oos.writeObject(new Message(us, Message.MesType.lIST_FULL));
+                    } catch (IOException ex) {
+                        Logger.getLogger(ServerControl.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    try {
+                        oos.writeObject(new Message(us, Message.MesType.LIST_NULL));
+                    } catch (IOException ex) {
+                        Logger.getLogger(ServerControl.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                break;
+            }
+            
+            case INVITE_USER:{              
+                
+                
+                break;
+            }
+            
             default: break;
         }
     }
+    
+    class inviteThread extends Thread{
 
+        @Override
+        public void run() {
+            
+        }
+        
+    }
+    
     private Message createMessage() {
         Message mes = new Message();
         return mes;

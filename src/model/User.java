@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author lamit
  */
-public class User implements Serializable{
+public class User implements Serializable, Comparable<User>{
     private static final long serialVersionUID = 6529685098267757694L;
     private int id;
     private Account account;
@@ -89,5 +89,15 @@ public class User implements Serializable{
     
     public Object[] toObjects(){
         return new Object[]{rank,account.getUsername(),point,status};
+    }
+    
+    @Override
+    public int compareTo(User o) {
+        if (point == o.point)
+            return 0;
+        else if (point > o.point)
+            return 1;
+	else
+            return -1;
     }
 }
